@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :review do
-    rating { 1 }
-    user_name { "MyString" }
-    content { "MyText" }
-    title { "MyString" }
-    movie
+    rating { rand(1..5) }
+    user_name { Faker::Name.name }
+    content { Faker::Lorem.paragraph }
+    title { Faker::Lorem.sentence }
+    movie { create(:movie) }
   end
 end
