@@ -1,4 +1,6 @@
 class Review < ApplicationRecord
+  default_scope { order(:created_at) }
+
   belongs_to :movie
 
   validates :title, :rating, :content, presence: true
