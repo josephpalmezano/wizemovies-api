@@ -39,5 +39,39 @@ RSpec.describe "Reviews", type: :request do
         expect(response).to have_http_status(:ok)    
       end
     end
+
+    describe 'POST /api/v1/reviews' do
+      it 'returns 422 when invalid attributes' do
+        params_with_nil_content = [
+          attributes_for(:review, content: nil),
+          attributes_for(:review, title: nil),
+          attributes_for(:review, rating: nil),
+          attributes_for(:review, rating: "not integer"),
+          attributes_for(:review, rating: 6),
+          attributes_for(:review, rating: 0),
+          attributes_for(:review, movie_id: 0)
+        ]
+        params_with_nil_content.each do |params|
+          post "/api/v1/reviews", params: params
+          expect(response).to have_http_status(:unprocessable_entity)  
+        end
+      end
+      
+      let!(:review) { attributes_for(:review) }
+
+      before { post "/api/v1/reviews", params: review }
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(:created)    
+      end
+
+      it 'returns the created review' do
+        expect(json["title"]).to eq(review[:title])
+        expect(json["content"]).to eq(review[:content])
+        expect(json["rating"]).to eq(review[:rating])
+        expect(json["user_name"]).to eq(review[:user_name])
+        expect(json["movie_id"]).to eq(review[:movie_id]) 
+      end
+    end
   end
 end

@@ -4,6 +4,6 @@ FactoryBot.define do
     user_name { Faker::Name.name }
     content { Faker::Lorem.paragraph }
     title { Faker::Lorem.sentence }
-    movie { create(:movie) }
+    movie_id { create(:movie).id }
   end
 end
