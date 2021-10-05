@@ -3,7 +3,7 @@ class Review < ApplicationRecord
 
   belongs_to :movie
 
-  validates :title, :rating, :content, presence: true
+  validates :user_name, :title, :rating, :content, presence: true
   validates :rating, numericality: {
                                     only_integer: true, 
                                     less_than_or_equal_to: 5, 
