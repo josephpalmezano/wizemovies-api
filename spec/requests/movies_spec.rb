@@ -1,22 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe "Movies", type: :request do
-  let!(:movies) { create_list(:movie, 5) }
+  let!(:movies) { create_list(:movie, 110) }
+  let!(:pages)  { (movies.size.to_f/20.0).ceil }
 
   describe 'REST Api' do
     describe 'GET /movies' do
-      before { get '/api/v1/movies' }
+      it 'returns 404 when page doesn not exists' do
+        get "/api/v1/movies?page=0"
+        expect(response).to have_http_status(:not_found)       
+      end
+
+      it 'returns 404 when page doesn not exists' do
+        get "/api/v1/movies?page=#{pages+1}"
+        expect(response).to have_http_status(:not_found)       
+      end
+
+      before { get "/api/v1/movies?page=#{rand(1..(pages-1))}" }
 
       it 'returns all movies' do
-        expect(json).not_to be_empty        
+        expect(json["data"]).not_to be_empty        
       end
 
-      it 'returns 5 movies' do
-        expect(json.size).to eq(5)       
+      it 'returns 20 movies' do
+        expect(json["data"].size).to eq(json["pagy"]["items"]) 
       end
 
-      it 'returns status code 200' do
-        expect(response).to have_http_status(:ok)    
+      it 'returns pages count' do
+        expect(json["pagy"]["pages"]).to eq(pages)
       end
     end
 

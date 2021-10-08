@@ -1,7 +1,10 @@
 class Api::V1::MoviesController < Api::V1::BaseController
 	def index
-    render json: Movie.all,
-           status: :ok
+		pagy, records = pagy(Movie.all)
+		render json: { data: records,
+									 pagy: pagy,
+               		 status: :ok
+               	}
 	end
 
   def show

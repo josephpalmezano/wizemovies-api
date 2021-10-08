@@ -51,3 +51,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'jsonapi-serializer'
 gem 'figaro'
+gem 'pagy', '~> 3.5'
+gem 'rack-cors'

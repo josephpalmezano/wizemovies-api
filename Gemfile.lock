@@ -125,12 +125,15 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.12.4-x86_64-darwin)
       racc (~> 1.4)
+    pagy (3.14.0)
     pg (1.2.3)
     public_suffix (4.0.6)
     puma (5.5.0)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.4.1)
@@ -215,8 +218,10 @@ DEPENDENCIES
   http
   jsonapi-serializer
   listen (~> 3.3)
+  pagy (~> 3.5)
   pg (~> 1.1)
   puma (~> 5.0)
+  rack-cors
   rails (~> 6.1.4, >= 6.1.4.1)
   rspec-rails (~> 5.0.0)
   shoulda-matchers (~> 5.0)
