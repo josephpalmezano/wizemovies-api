@@ -1,9 +1,9 @@
-require File.expand_path('helpers/serializer_helper', __dir__)
+require_relative "support/serializer_helper"
 
 class MovieSerializer
   include JSONAPI::Serializer
 
-  include SerializerHelper
+  include ::SerializerHelper
 
   attributes :id, :title, :poster_url, :genres
 
