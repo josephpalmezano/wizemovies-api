@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Movies", type: :request do
+  let!(:items_per_page) { 20 }
   let!(:movies) { create_list(:movie, 110) }
-  let!(:pages)  { (movies.size.to_f/20.0).ceil }
+  let!(:pages)  { (movies.size.to_f/Float(items_per_page)).ceil }
 
   describe 'REST Api' do
     describe 'GET /movies' do
@@ -19,15 +20,11 @@ RSpec.describe "Movies", type: :request do
       before { get "/api/v1/movies?page=#{rand(1..(pages-1))}" }
 
       it 'returns all movies' do
-        expect(json["data"]).not_to be_empty        
+        expect(json["data"]["data"]).not_to be_empty        
       end
 
       it 'returns 20 movies' do
-        expect(json["data"].size).to eq(json["pagy"]["items"]) 
-      end
-
-      it 'returns pages count' do
-        expect(json["pagy"]["pages"]).to eq(pages)
+        expect(json["data"]["data"].size).to eq(items_per_page) 
       end
     end
 
@@ -42,7 +39,7 @@ RSpec.describe "Movies", type: :request do
       before { get "/api/v1/movies/#{movie_id}" }
 
       it 'returns the movie item' do
-        expect(json["id"]).to eq(movie_id)        
+        expect(json["data"]["data"]["id"].to_i).to eq(movie_id)        
       end
 
       it 'returns status code 200' do
