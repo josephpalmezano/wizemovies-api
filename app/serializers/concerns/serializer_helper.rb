@@ -1,9 +1,9 @@
 module SerializerHelper
-  extend ActiveSupport::Concern
+	extend ActiveSupport::Concern
 
-  class_methods do
+	class_methods do
 	  def ask_for_details?(params)
 	    params && params[:details] == true
 	  end
-  end
+	end
 end

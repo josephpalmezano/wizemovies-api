@@ -1,3 +1,5 @@
+require 'http'
+
 namespace :movies do
   desc "create movies"
   task create: :environment do
