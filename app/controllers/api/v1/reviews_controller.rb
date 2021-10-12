@@ -3,7 +3,7 @@ class Api::V1::ReviewsController < Api::V1::BaseController
 	before_action :set_review, only: %i[update destroy]
 
 	def movie_reviews
-    render {json: @movie.reviews,
+    render json: @movie.reviews,
            status: :ok
 	end
 
