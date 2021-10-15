@@ -45,6 +45,10 @@ RSpec.describe "Movies", type: :request do
       it 'returns status code 200' do
         expect(response).to have_http_status(:ok)     
       end
+
+      it "JSON body response contains expected movie attributes" do
+        expect(json["data"]["data"]["attributes"].keys).to match_array(%w[id title poster_url genres plot])
+      end
     end
   end
 end

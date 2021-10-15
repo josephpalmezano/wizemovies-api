@@ -5,7 +5,6 @@ class MovieSerializer
 
   attributes :id, :title, :poster_url, :genres
 
-  has_many :reviews
 
   attributes :plot, if: Proc.new { |record, params|
     ask_for_details?(params)

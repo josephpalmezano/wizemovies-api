@@ -3,8 +3,10 @@ class Api::V1::ReviewsController < Api::V1::BaseController
 	before_action :set_review, only: %i[update destroy]
 
 	def movie_reviews
-    render json: @movie.reviews,
-           status: :ok
+    render json: {
+    								data: ReviewSerializer.new(reviews), 
+    								status: :ok
+    							}
 	end
 
 	def create
@@ -35,7 +37,13 @@ class Api::V1::ReviewsController < Api::V1::BaseController
 		@review = Review.find(params[:id])
 	end
 
+	private
+
   def review_params
     params.permit(:content, :rating, :title, :user_name, :movie_id)
+  end
+
+  def reviews
+  	@movie.reviews
   end
 end

@@ -13,22 +13,26 @@ RSpec.describe "Reviews", type: :request do
 
       it 'returns 0 reviews' do
         get "/api/v1/reviews/movie_reviews/#{movie_without_reviews.id}"
-        expect(json.size).to eq(0)       
+        expect(json["data"]["data"].size).to eq(0)       
       end
 
       before { get "/api/v1/reviews/movie_reviews/#{movie_with_reviews.id}" }
 
       it 'returns all reviews' do
-        expect(json).not_to be_empty        
+        expect(json["data"]["data"]).not_to be_empty        
       end
 
       it 'returns 5 reviews' do
-        expect(json.size).to eq(5)       
+        expect(json["data"]["data"].size).to eq(5)       
+      end
+
+      it "JSON body response contains expected movie attributes" do
+        expect(json["data"]["data"].first["attributes"].keys).to match_array(%w[id content rating title user_name created_at movie_id])
       end
 
       it 'returns only reviews form passed :movie_id' do
-        expect(json.map { |element| element["movie_id"] }.uniq.size).to eq(1)
-        expect(json.map { |element| element["movie_id"] }.uniq.first).to eq(movie_with_reviews.id)
+        expect(json["data"]["data"].map { |element| element["attributes"]["movie_id"] }.uniq.size).to eq(1)
+        expect(json["data"]["data"].map { |element| element["attributes"]["movie_id"] }.uniq.first).to eq(movie_with_reviews.id)
       end
 
       it 'returns the reviews ordered by :created_at' do
