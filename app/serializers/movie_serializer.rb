@@ -3,7 +3,7 @@ class MovieSerializer
 
   include SerializerHelper
 
-  attributes :id, :title, :poster_url, :genres
+  attributes :id, :title, :poster_url, :genres, :rating
 
 
   attributes :plot, if: Proc.new { |record, params|

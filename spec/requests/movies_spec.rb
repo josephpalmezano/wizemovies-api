@@ -47,7 +47,7 @@ RSpec.describe "Movies", type: :request do
       end
 
       it "JSON body response contains expected movie attributes" do
-        expect(json["data"]["data"]["attributes"].keys).to match_array(%w[id title poster_url genres plot])
+        expect(json["data"]["data"]["attributes"].keys).to match_array(%w[id rating title poster_url genres plot])
       end
     end
   end

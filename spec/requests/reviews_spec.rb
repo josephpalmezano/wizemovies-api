@@ -36,7 +36,7 @@ RSpec.describe "Reviews", type: :request do
       end
 
       it 'returns the reviews ordered by :created_at' do
-        expect(Review.all.to_sql).to eq(Review.order(created_at: :asc).to_sql)        
+        expect(Review.all.to_sql).to eq(Review.order(created_at: :desc).to_sql)        
       end
 
       it 'returns status code 200' do
