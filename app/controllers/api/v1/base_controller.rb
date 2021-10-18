@@ -1,5 +1,8 @@
 class Api::V1::BaseController < ActionController::Base
+	skip_before_action :verify_authenticity_token
+
 	include Pagy::Backend
+	
 	rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 	rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 	rescue_from Pagy::OverflowError, with: :page_not_found
