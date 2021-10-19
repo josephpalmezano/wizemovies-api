@@ -63,6 +63,10 @@ RSpec.describe "Reviews", type: :request do
       
       let!(:review) { attributes_for(:review) }
 
+      it 'expected to create a new review' do
+        expect { post "/api/v1/reviews", params: review }.to change(Review, :count).by(+1)
+      end
+
       before { post "/api/v1/reviews", params: review }
 
       it 'returns status code 201' do
